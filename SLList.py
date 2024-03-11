@@ -3,6 +3,7 @@ class Node:
         self.data = data
         self.next = None
 
+
 class _SLListIterator:
     def __init__(self, head):
         self._current_node = head
@@ -38,6 +39,8 @@ class SLList:
             current_node = current_node.next
         return current_node is not None
 
+
+
     def add(self, data):
         node = Node(data)
         self.size += 1
@@ -62,4 +65,16 @@ class SLList:
                 prev_node.next = current_node.next
             if current_node is self.tail:
                 self.tail = prev_node
+
+    def reverse(self):
+        current_node = self.head
+        prev = None
+        while current_node is not None:
+            buffer = current_node.next
+            current_node.next = prev
+            prev = current_node
+            current_node = buffer
+
+        self.head, self.tail = self.tail, self.head
+
 
