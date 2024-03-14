@@ -39,7 +39,13 @@ class SLList:
             current_node = current_node.next
         return current_node is not None
 
-
+    def __str__(self):
+        lst = ""
+        current_node = self.head
+        while current_node is not None:
+            lst+= str(current_node.data)+" => "
+            current_node = current_node.next
+        return lst
 
     def add(self, data):
         node = Node(data)
@@ -77,4 +83,61 @@ class SLList:
 
         self.head, self.tail = self.tail, self.head
 
+    def deleteDuplicates_2(self):
+        new_lst = SLList()
+
+
+        seen = set()
+        current_node = self.head
+        while current_node is not None:
+            # print(new_lst.__str__())
+            if current_node.data not in seen:
+                new_lst.add(current_node.data)
+                seen.add(current_node.data)
+            current_node = current_node.next
+        self.head = new_lst.head
+        return new_lst
+
+    def deleteDuplicates(self):
+
+        current_node = self.head
+        check = current_node.data
+        while current_node is not None and current_node.next is not None:
+                if current_node.next.data == check:
+                    current_node.next = current_node.next.next
+                else:
+                    current_node = current_node.next
+                    check = current_node.data
+                    print(f"check: {check}")
+
+
+
+
+
+# Definition for singly-linked list.
+
+# class Solution:
+#     def deleteDuplicates(self, head):ListNode(1, ListNode(1, ListNode(2, ListNode(3))))
+#         current_node = head
+#         while current_node is not None:
+#             if current_node.val == current_node.next.val:
+#                 current_node.next = current_node.next.next
+#         return head
+
+if __name__ == "__main__":
+    head = SLList()
+    head.add(1)
+    head.add(1)
+    head.add(1)
+    head.add(1)
+    head.add(1)
+    head.add(1)
+    head.add(2)
+    head.add(2)
+    head.add(1)
+    head.add(1)
+    head.add(1)
+
+    head.deleteDuplicates()
+    print(head)
 
